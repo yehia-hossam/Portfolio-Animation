@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 import {gsap} from 'gsap';
 import {useGsapSection} from '../lib/useGsap';
 import {SplitWords} from '../components/SplitWords';
@@ -8,16 +8,42 @@ type Project = (typeof projects)[number];
 
 /**
  * Card media — supports video with poster, or a plain image.
- * Same 16:10 aspect and hover-zoom behavior as the original image.
+ *
+ * Video behavior:
+ * - Plays automatically when the card enters the viewport
+ * - Pauses when the card leaves the viewport (saves battery + CPU)
+ * - Muted + playsInline is required for browser autoplay policies
+ * - Falls back to a static image if no video is provided
  */
 function CardMedia({p}: {p: Project}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const video = 'video' in p ? p.video : undefined;
   const image = 'image' in p ? p.image : undefined;
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || !video) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      {threshold: 0.25},
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, [video]);
 
   return (
     <div className="relative aspect-[16/10] overflow-hidden bg-line">
       {video ? (
         <video
+          ref={videoRef}
           src={video}
           poster={image}
           muted
@@ -26,13 +52,6 @@ function CardMedia({p}: {p: Project}) {
           preload="metadata"
           aria-label={p.title}
           className="h-[112%] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          onMouseEnter={(e) => {
-            e.currentTarget.play().catch(() => {});
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.pause();
-            e.currentTarget.currentTime = 0;
-          }}
         />
       ) : (
         <img
