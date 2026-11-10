@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+
+/* ─── Palette: emerald green + lemon yellow ──────────────── */
+:root {
+  --page: #f6f7f2;
+  --ink: #0d1a14;
+  --mute: #0d1a1499;
+  --line: #0d1a141f;
+  --field: #fcfcf8;
+  --disc: #d9534f;
+  --sun: #ebea46;
+  --sage: #6b8275;
+  --coral: #d9534f;
+  --cream: #f0eddb;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --page: #0a0f0d;
+  --ink: #edefe9;
+  --mute: #edefe999;
+  --line: #edefe91f;
+  --field: #111714;
+  --disc: #d9534f;
+  --sun: #f5f44a;
+  --sage: #a8b8ad;
+  --coral: #f07a76;
+  --cream: #1a201c;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-field: var(--field);
+  --color-disc: var(--disc);
+  --color-sun: var(--sun);
+  --color-sage: var(--sage);
+  --color-coral: var(--coral);
+  --color-cream: var(--cream);
+}
+
+@theme {
+  --font-display: 'Satoshi', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-wide: 'Unbounded', 'Satoshi', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  --text-lede: clamp(14px, 1.05vw, 16px);
+  --text-lede--line-height: 1.5;
+  --text-lede--letter-spacing: -0.006em;
+  --text-ui: 12px;
+  --text-ui--line-height: 1;
+  --text-ui--letter-spacing: 0.08em;
+  --text-micro: 11px;
+  --text-micro--line-height: 1.2;
+  --text-micro--letter-spacing: 0.1em;
+  --text-wordmark: clamp(15px, 1.35vw, 20px);
+  --text-wordmark--line-height: 1;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+html {
+  background: var(--page);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s, color 0.3s;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  background: var(--page);
+}
+
+/* Big display headline */
+.headline {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+/* Highlighter marker behind the name — uses the lemon yellow */
+.marker {
+  background: linear-gradient(transparent 52%, var(--sun) 52%, var(--sun) 92%, transparent 92%);
+  padding-inline: 0.04em;
+  color: var(--ink);
+}
+
+/* Stage tucks up under the headline so hair overlaps the type */
+.stage {
+  margin-top: calc(var(--mega, 80px) * -0.3);
+}
+@media (min-width: 768px) {
+  .stage {
+    margin-top: calc(var(--mega, 160px) * -0.62);
+  }
+}
+
+/* Custom cursor ring for the draggable face */
+.grab-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+.grab-ring::before,
+.grab-ring::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  transition:
+    transform 0.18s cubic-bezier(0.3, 1.6, 0.5, 1),
+    opacity 0.18s;
+  opacity: 0;
+}
+.grab-ring::before {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid #fff;
+  mix-blend-mode: difference;
+  transform: scale(0.6);
+}
+.grab-ring::after {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+.grab-ring[data-on='1']::before,
+.grab-ring[data-on='1']::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.grab-ring[data-held='1']::before {
+  transform: scale(0.62);
+}
+
+.hint {
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+}
+
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.split-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+.scroll-cue {
+  margin-inline: auto;
+}
+.cue-line {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 1px;
+  overflow: hidden;
+  background: color-mix(in oklab, currentColor 30%, transparent);
+}
+.cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: translateX(-100%);
+  animation: cue 2.2s ease-in-out infinite;
+}
+@keyframes cue {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grab-ring::before,
+  .grab-ring::after,
+  .hint {
+    transition: none;
+  }
+  .split-char { transform: none !important; opacity: 1 !important; }
+  .cue-line::after { animation: none; transform: none; }
+}
+
+
+section[id] {
+  scroll-margin-top: 90px;
+}
