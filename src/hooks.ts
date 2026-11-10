@@ -1,10 +1,8 @@
 import {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 /**
- * From md up, sizes the one-line headline (inline-block, nowrap) to span its
- * parent's content box exactly. Below md it keeps its CSS size and wraps.
- * Either way the final size is published on the parent as --mega, which the
- * stage uses to tuck up under the type.
+ * From md up, sizes the one-line headline to span its parent's content
+ * box exactly. Below md it keeps its CSS size and wraps.
  */
 export function useFitHeadline<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -30,7 +28,6 @@ export function useFitHeadline<T extends HTMLElement>() {
     };
 
     fit();
-    // Re-fit once Satoshi swaps in; its advances differ from the fallback.
     document.fonts?.ready.then(fit);
     const ro = new ResizeObserver(fit);
     ro.observe(parent);
@@ -43,21 +40,15 @@ export function useFitHeadline<T extends HTMLElement>() {
 const THEME_KEY = 'otis-theme';
 
 export function useTheme() {
-  const [dark, setDark] = useState(() => {
-    try {
-      const saved = localStorage.getItem(THEME_KEY);
-      if (saved) return saved === 'dark';
-    } catch {
-      /* storage blocked — default to light */
-    }
-    // Default to LIGHT mode on first visit.
-    // The user can still toggle to dark; that choice is remembered.
-    return false;
-  });
+  // Always start in LIGHT mode — ignore any saved preference.
+  // The user can still toggle; that only affects the current session.
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0a0f0d' : '#f6f7f2');
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', dark ? '#0a0f0d' : '#f6f7f2');
     try {
       localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
     } catch {
@@ -70,9 +61,7 @@ export function useTheme() {
 
 /**
  * Smooth-scrolls to in-page anchors on click.
- * - Works with any `a[href^="#"]` in the page
- * - Respects prefers-reduced-motion
- * - Applies a sticky-header offset
+ * Respects prefers-reduced-motion, applies a sticky-header offset.
  */
 export function useSmoothAnchors(offset = 80) {
   useEffect(() => {
