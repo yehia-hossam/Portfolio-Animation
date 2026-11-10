@@ -1,13 +1,12 @@
 <div align="center">
 
-# Otis — Creative Portfolio
+# Creative Portfolio
 
 **A premium, animated portfolio landing page for a fictional character artist & facial rigger.**
 
 Featuring a fully interactive WebGL2 face you can grab, stretch, and let snap back — with physics, mood changes, and personality.
 
-[Live Demo](https://your-demo-url.com) · [Report Bug](https://github.com/your-username/otis/issues) · [Request Feature](https://github.com/your-username/otis/issues)
-
+[Live Demo](https://your-demo-url.com) ·
 </div>
 
 ---
