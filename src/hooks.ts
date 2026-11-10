@@ -48,14 +48,16 @@ export function useTheme() {
       const saved = localStorage.getItem(THEME_KEY);
       if (saved) return saved === 'dark';
     } catch {
-      /* storage blocked — fall through to the system setting */
+      /* storage blocked — default to light */
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Default to LIGHT mode on first visit.
+    // The user can still toggle to dark; that choice is remembered.
+    return false;
   });
 
   useEffect(() => {
     document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0e1015' : '#e8ebf1');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0a0f0d' : '#f6f7f2');
     try {
       localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
     } catch {

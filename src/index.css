@@ -1,13 +1,12 @@
 @import 'tailwindcss';
 
-/* ─── Palette: emerald green + lemon yellow ──────────────── */
 :root {
   --page: #f6f7f2;
   --ink: #0d1a14;
   --mute: #0d1a1499;
   --line: #0d1a141f;
   --field: #fcfcf8;
-  --disc: #d9534f;
+  --disc: #d82245;
   --sun: #ebea46;
   --sage: #6b8275;
   --coral: #d9534f;
@@ -20,7 +19,7 @@
   --mute: #edefe999;
   --line: #edefe91f;
   --field: #111714;
-  --disc: #d9534f;
+  --disc: #f0456a;
   --sun: #f5f44a;
   --sage: #a8b8ad;
   --coral: #f07a76;
@@ -71,6 +70,7 @@ html {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.3s, color 0.3s;
+  scroll-behavior: smooth;
 }
 body {
   margin: 0;
@@ -79,7 +79,6 @@ body {
   background: var(--page);
 }
 
-/* Big display headline */
 .headline {
   font-family: var(--font-display);
   font-weight: 900;
@@ -88,14 +87,11 @@ body {
   text-transform: uppercase;
 }
 
-/* Highlighter marker behind the name — uses the lemon yellow */
 .marker {
   background: linear-gradient(transparent 52%, var(--sun) 52%, var(--sun) 92%, transparent 92%);
   padding-inline: 0.04em;
-  color: var(--ink);
 }
 
-/* Stage tucks up under the headline so hair overlaps the type */
 .stage {
   margin-top: calc(var(--mega, 80px) * -0.3);
 }
@@ -105,7 +101,6 @@ body {
   }
 }
 
-/* Custom cursor ring for the draggable face */
 .grab-ring {
   position: fixed;
   left: 0;
@@ -188,17 +183,25 @@ body {
   100% { transform: translateX(100%); }
 }
 
+section[id] {
+  scroll-margin-top: 90px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .grab-ring::before,
   .grab-ring::after,
   .hint {
     transition: none;
   }
-  .split-char { transform: none !important; opacity: 1 !important; }
-  .cue-line::after { animation: none; transform: none; }
-}
-
-
-section[id] {
-  scroll-margin-top: 90px;
+  .split-char {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .cue-line::after {
+    animation: none;
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

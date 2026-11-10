@@ -23,31 +23,37 @@ export function About() {
         ease: 'power3.out',
         scrollTrigger: {trigger: el, start: 'top 70%'},
       });
+      gsap.to(el.querySelector('.about-portrait'), {
+        yPercent: -6,
+        ease: 'none',
+        scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true},
+      });
     });
   }, []);
   const ref = useGsapSection<HTMLElement>(setup);
 
   return (
-    <section id="about" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(72px,12vh,140px)]">
-      <div className="grid gap-12 md:grid-cols-12 md:items-end">
+    <section id="about" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(56px,10vh,140px)]">
+      <div className="grid gap-8 sm:gap-12 md:grid-cols-12 md:items-end">
         <div className="md:col-span-7">
-          <h2 className="headline text-[clamp(44px,8vw,120px)]">
+          <h2 className="headline text-[clamp(36px,8vw,120px)]">
             <SplitWords text="I make" />
             <br />
             <span className="marker"><SplitWords text="faces" /></span>{' '}
             <SplitWords text="for a living." />
           </h2>
-          <p className="about-line mt-8 max-w-[52ch] text-lede text-ink">
+
+          <p className="about-line mt-6 sm:mt-8 max-w-[52ch] text-lede text-ink">
             Hi — I’m {person.name}. For eleven years I’ve been sculpting, rigging and animating
             cartoon characters for games, cereal boxes, and one very confused bank. I’m obsessed
             with the tiny shape changes that make a face read as alive.
           </p>
-          <p className="about-line mt-4 max-w-[52ch] text-lede text-mute">
+          <p className="about-line mt-3 sm:mt-4 max-w-[52ch] text-lede text-mute">
             My philosophy: respect the squash, respect the stretch, and never trust a straight
             line. I build small tools that let non-technical artists rig a face in an afternoon.
           </p>
 
-          <dl className="about-line mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <dl className="about-line mt-8 sm:mt-10 grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-3">
             {[
               ['Character Design', 'Sculpt + style'],
               ['3D Modeling', 'High to low poly'],
@@ -57,7 +63,7 @@ export function About() {
               ['Interaction', 'Magnetic UI'],
             ].map(([title, sub]) => (
               <div key={title}>
-                <dt className="font-display text-[15px] font-bold">{title}</dt>
+                <dt className="font-display text-[13px] sm:text-[15px] font-bold">{title}</dt>
                 <dd className="mt-1 text-micro uppercase text-sage">{sub}</dd>
               </div>
             ))}
@@ -65,7 +71,7 @@ export function About() {
         </div>
 
         <div className="md:col-span-5">
-          <div className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full bg-cream ring-1 ring-line">
+          <div className="about-portrait relative mx-auto aspect-square w-full max-w-[320px] sm:max-w-[420px] overflow-hidden rounded-full bg-cream ring-1 ring-line">
             <img
               src={faces.base.src}
               alt="Portrait illustration of Otis"

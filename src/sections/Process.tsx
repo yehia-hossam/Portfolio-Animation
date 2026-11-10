@@ -39,24 +39,27 @@ export function Process() {
   const ref = useGsapSection<HTMLElement>(setup);
 
   return (
-    <section id="process" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(72px,12vh,140px)]">
-      <h2 className="headline mb-14 text-[clamp(44px,8vw,120px)]">
+    <section id="process" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(56px,10vh,140px)]">
+      <h2 className="headline mb-10 sm:mb-14 text-[clamp(36px,8vw,120px)]">
         <SplitWords text="The Process" />
       </h2>
+
       <div className="process-track relative">
         <div
           className="process-progress absolute left-0 top-3 hidden h-px w-full origin-left scale-x-0 bg-sun md:block"
           aria-hidden
         />
-        <ol className="grid grid-cols-1 gap-8 md:grid-cols-5 md:gap-4">
+        <ol className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-5 md:gap-4">
           {processSteps.map((s) => (
-            <li key={s.n} className="step relative">
-              <span className="mb-3 block size-2.5 rounded-full bg-sun ring-4 ring-page" />
-              <span className="text-micro font-semibold uppercase text-sage">{s.n}</span>
-              <h3 className="mt-1 font-display text-[clamp(20px,2vw,28px)] font-bold tracking-[-0.02em]">
-                {s.title}
-              </h3>
-              <p className="mt-2 max-w-[28ch] text-lede text-mute">{s.description}</p>
+            <li key={s.n} className="step relative flex gap-4 md:block">
+              <span className="mt-1 shrink-0 block size-2.5 rounded-full bg-sun ring-4 ring-page md:mb-3" />
+              <div>
+                <span className="text-micro font-semibold uppercase text-sage">{s.n}</span>
+                <h3 className="mt-1 font-display text-[clamp(18px,2vw,28px)] font-bold tracking-[-0.02em]">
+                  {s.title}
+                </h3>
+                <p className="mt-2 max-w-[28ch] text-lede text-mute">{s.description}</p>
+              </div>
             </li>
           ))}
         </ol>

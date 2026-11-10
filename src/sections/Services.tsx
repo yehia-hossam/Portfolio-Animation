@@ -28,30 +28,30 @@ export function Services() {
   const ref = useGsapSection<HTMLElement>(setup);
 
   return (
-    <section id="services" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(72px,12vh,140px)]">
-      <header className="mb-14 max-w-[52ch]">
-        <h2 className="headline text-[clamp(44px,8vw,120px)]">
+    <section id="services" ref={ref} className="px-[clamp(16px,4vw,64px)] py-[clamp(56px,10vh,140px)]">
+      <header className="mb-10 sm:mb-14 max-w-[52ch]">
+        <h2 className="headline text-[clamp(36px,8vw,120px)]">
           <SplitWords text="Services &" />
           <br />
           <span className="marker"><SplitWords text="Expertise" /></span>
         </h2>
-        <p className="mt-6 text-lede text-mute">
+        <p className="mt-4 sm:mt-6 text-lede text-mute">
           Six things I do well — and care about doing well.
         </p>
       </header>
 
-      <div className="service-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="service-grid grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
           <article
             key={s.title}
-            className="service-card group relative flex min-h-[220px] flex-col justify-between overflow-hidden rounded-3xl border border-line bg-field p-6 transition-colors hover:bg-ink hover:text-page"
+            className="service-card group relative flex min-h-[180px] sm:min-h-[220px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-line bg-field p-5 sm:p-6 transition-colors hover:bg-ink hover:text-page"
           >
             <div className="absolute right-0 top-0 h-1 w-12 bg-coral transition-all group-hover:w-full" aria-hidden />
             <span className="text-micro font-semibold uppercase text-mute group-hover:text-page/60">
               {s.n}
             </span>
             <div>
-              <h3 className="font-display text-[clamp(20px,2vw,26px)] font-bold tracking-[-0.02em]">
+              <h3 className="font-display text-[clamp(18px,2vw,26px)] font-bold tracking-[-0.02em]">
                 {s.title}
               </h3>
               <p className="mt-2 text-lede opacity-80">{s.description}</p>

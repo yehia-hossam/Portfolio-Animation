@@ -33,7 +33,7 @@ export function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="relative overflow-hidden px-[clamp(16px,4vw,64px)] py-[clamp(88px,16vh,180px)] text-center"
+      className="relative overflow-hidden px-[clamp(16px,4vw,64px)] py-[clamp(72px,14vh,180px)] text-center"
     >
       <div
         className="pointer-events-none absolute left-1/2 top-[10%] -z-10 aspect-square w-[min(70vw,560px)] -translate-x-1/2 rounded-full bg-disc opacity-90"
@@ -46,23 +46,27 @@ export function Contact() {
         className="pointer-events-none absolute left-1/2 top-[10%] -z-10 aspect-square w-[min(58vw,440px)] -translate-x-1/2 rounded-full object-cover"
         aria-hidden
       />
-      <h2 className="headline relative mx-auto max-w-[16ch] text-[clamp(40px,8.5vw,132px)]">
+
+      <h2 className="headline relative mx-auto max-w-[16ch] text-[clamp(32px,8.5vw,132px)]">
         <SplitWords text="Have a good idea?" />
         <br />
         <span className="marker"><SplitWords text="Let’s make it real." /></span>
       </h2>
-      <p className="contact-fade relative mx-auto mt-8 max-w-[46ch] text-lede text-mute">
+
+      <p className="contact-fade relative mx-auto mt-6 sm:mt-8 max-w-[46ch] text-lede text-mute">
         Got a character that needs a soul, or an interaction that should feel alive? Tell me
         about it.
       </p>
+
       <a
         href={`mailto:${EMAIL}`}
-        className="contact-fade relative mt-8 inline-flex items-center gap-3 rounded-full bg-disc px-8 py-4 font-display text-[clamp(16px,1.6vw,20px)] font-bold text-white shadow-[0_12px_40px_-12px_var(--disc)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_var(--disc)]"
+        className="contact-fade relative mt-6 sm:mt-8 inline-flex items-center gap-2 sm:gap-3 rounded-full bg-disc px-5 sm:px-8 py-3 sm:py-4 font-display text-[clamp(13px,1.6vw,20px)] font-bold text-white shadow-[0_12px_40px_-12px_var(--disc)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_var(--disc)]"
       >
-        {EMAIL}
+        <span className="truncate">{EMAIL}</span>
         <span aria-hidden>→</span>
       </a>
-      <ul className="contact-fade relative mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-ui font-semibold uppercase">
+
+      <ul className="contact-fade relative mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2 sm:gap-y-3 text-ui font-semibold uppercase">
         {['Dribbble', 'Instagram', 'X / Twitter', 'Read.cv'].map((s) => (
           <li key={s}>
             <a href="#" className="text-mute hover:text-sage">{s}</a>
