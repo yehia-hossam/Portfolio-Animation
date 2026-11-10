@@ -6,7 +6,7 @@
 
 Featuring a fully interactive WebGL2 face you can grab, stretch, and let snap back — with physics, mood changes, and personality.
 
-[Live Demo](https://your-demo-url.com) ·
+[Live Demo](https://portfolio-animation-iota.vercel.app/) ·
 </div>
 
 ---
